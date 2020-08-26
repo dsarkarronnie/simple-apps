@@ -1,16 +1,17 @@
 import React from 'react'
 import Card from './Card/Card'
-const cards = (props)=>{
-    const cards = props.cards.map(el=>(
+import classes from './Cards.module.css'
+const cards = (props) => {
+    const cards = props.cards.map(el => (
         <Card
             key={el.id}
             heading={el.heading}
-            detail={el.detail}    
-            remove={()=>props.removeCard(el.id)}    
-        ></Card>
+            detail={el.detail}
+            remove={() => props.removeCard(el.id)}>
+        </Card>
     ))
     return (
-        <div>
+        <div className={classes.Cards}>
             {cards}
         </div>
     )

@@ -1,0 +1,10 @@
+.todoAppLabel{
+    font-size: 15px;
+    padding: 0.5em 0.5em;
+    font-weight: bolder;
+    font-family: 'Proxima Nova', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    letter-spacing: 5px;
+}
+.left{
+    float: left;
+}
