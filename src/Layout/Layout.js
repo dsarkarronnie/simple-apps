@@ -26,6 +26,14 @@ const layout = (props) => {
         {
             label: 'E-Wallet',
             command: () => {props.history.push('/ewallet');}
+        },
+        {
+            label: 'Date Picker',
+            command: () => {props.history.push('/datepicker');}
+        },
+        {
+            label: 'Tic-Tac-Toe',
+            command: () => {props.history.push('/tictactoe');}
         }
     ];
     return (

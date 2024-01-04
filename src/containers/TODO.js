@@ -13,12 +13,14 @@ import 'primereact/resources/themes/rhea/theme.css'
 import { Dialog } from 'primereact/dialog'
 import 'primereact/resources/primereact.min.css'
 import 'primeicons/primeicons.css'
+import TextHolder from '../components/Cards/TextHolder'
 class TODOApp extends Component {
     state = {
         counter: 1,
         cards: [],
         cardDetailInput: '',
-        dialogVisible: false
+        dialogVisible: false,
+        anotherCounter: 0
     }
     
     componentDidMount() {
@@ -75,6 +77,9 @@ class TODOApp extends Component {
         this.setState({ response: response });
         console.log(this.state.response);
     }
+    handleClick = ()=>{
+        this.setState(prevState=>({ anotherCounter: prevState.anotherCounter+1 }));
+    }
     render() {
         const cardstyle = {
             maxWidth: '250px',
@@ -82,6 +87,8 @@ class TODOApp extends Component {
         };
         return (
             <Aux>
+                {/* <button onClick={this.handleClick}>CLICK ME</button>
+                <TextHolder key={this.state.anotherCounter} text={`This is a sample text with counter: ${this.state.anotherCounter}`}></TextHolder> */}
                 <div>
                     <Cards cards={this.state.cards} removeCard={this.removeCard}></Cards>
                 </div>

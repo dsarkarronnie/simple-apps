@@ -4,7 +4,7 @@ import TODOApp from './containers/TODO'
 import Layout from './Layout/Layout'
 // import asyncComponent from './hoc/AsyncComponent'
 import { Router, Route, NavLink, BrowserRouter, Redirect, Switch } from 'react-router-dom'
-
+import RouteWrapper from './hoc/RouteWrapper';
 import './App.css';
 // const AsyncComponentEWallet = asyncComponent(() => {
 //   return import('./containers/EWallet');
@@ -28,7 +28,9 @@ class App extends Component {
           <Layout>
             {/* <TODOApp></TODOApp>
             <EWallet></EWallet> */}
+            <Redirect from="/" to="/todoapp" />
             <Switch>
+              <Route strict component={RouteWrapper} path='/' />
               {this.state.authorization.ewallet ?
                 (<Route strict render={() =>
                   <Suspense fallback={<div>Loading ...</div>}>
@@ -37,9 +39,7 @@ class App extends Component {
                 } path='/ewallet' />) :
                 <Redirect from="/ewallet" to="/notauthorized" />
               }
-              <Route strict component={TODOApp} path='/todoapp' />
               <Route strict render={() => <h1>NOT AUTHORIZED TO ACCESS PAGE</h1>} path='/notauthorized' />
-              <Redirect from="/" to="/todoapp" />
               <Route render={() => <h1>PAGE NOT FOUND!</h1>} />
             </Switch>
           </Layout>
