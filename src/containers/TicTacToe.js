@@ -85,10 +85,10 @@ export default function Game() {
 
   return (
     <div className="game">
-      <div className="game-board">
+      <div className={classes.gameBoard}>
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
       </div>
-      <div className="game-info">
+      <div className={classes.gameInfo}>
         <ol>{moves}</ol>
       </div>
     </div>

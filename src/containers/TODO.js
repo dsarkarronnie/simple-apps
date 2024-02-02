@@ -15,6 +15,11 @@ import 'primereact/resources/primereact.min.css'
 import 'primeicons/primeicons.css'
 import TextHolder from '../components/Cards/TextHolder'
 class TODOApp extends Component {
+
+    cardState = {
+        'created' : { 'key':'created', 'val': 1, 'userLabel': 'Done'},
+        'done': { 'key':'done', 'val': 2, 'userLabel': 'Dismiss'},
+    }
     state = {
         counter: 1,
         cards: [],
@@ -32,7 +37,7 @@ class TODOApp extends Component {
         });
         const cardsData = window.localStorage.getItem('cardsData');
         if (cardsData && cardsData.length > 0) {
-            this.setState({ cards: [...this.state.cards, ...JSON.parse(cardsData)] });
+            this.setState({ cards: [...JSON.parse(cardsData)] });
             var newCount = JSON.parse(cardsData).reduce((p, c) => p.id > c.id ? p : c, []).id;
             if (newCount)
                 this.setState({ counter: newCount });
@@ -46,25 +51,36 @@ class TODOApp extends Component {
             const newCard = {
                 id: updatedCount,
                 heading: heading,
-                detail: detail
+                detail: detail,
+                cardState: this.cardState.created
             }
-            this.setState({ counter: updatedCount, cards: [...this.state.cards, newCard] });
+            const cards = [...this.state.cards, newCard]
+            this.setState({ counter: updatedCount, cards: cards });
             this.setState({ cardDetailInput: '' });
-
-            window.localStorage.setItem('cardsData', JSON.stringify([...this.state.cards, newCard]));
+            window.localStorage.setItem('cardsData', JSON.stringify(cards));
         }
         else {
             alert('Enter Detail');
         }
     }
-    removeCard = (id) => {
+    cardButtonAction = (id) => {
         var cards = [...this.state.cards];
         const index = cards.indexOf(cards.find(x => x.id === id));
-        console.log(index);
-
-        if (index !== -1) {
-            cards.splice(index, 1);
-            this.setState({ cards: cards });
+        console.log('Performing action on: ',cards[index]);
+        console.log('Card state:',cards[index].cardState.key)
+        switch (cards[index].cardState.key) {
+            case 'created':
+                var card = cards[index]
+                card.cardState = this.cardState.done
+                console.log('Card state updated:',cards[index].cardState.key)
+                this.setState({ cards: cards });
+                break;        
+            default:
+                if (index !== -1) {
+                    cards.splice(index, 1);
+                }
+                this.setState({ cards: cards });
+                break;
         }
         window.localStorage.setItem('cardsData', JSON.stringify(cards));
     }
@@ -89,9 +105,7 @@ class TODOApp extends Component {
             <Aux>
                 {/* <button onClick={this.handleClick}>CLICK ME</button>
                 <TextHolder key={this.state.anotherCounter} text={`This is a sample text with counter: ${this.state.anotherCounter}`}></TextHolder> */}
-                <div>
-                    <Cards cards={this.state.cards} removeCard={this.removeCard}></Cards>
-                </div>
+                <Cards cards={this.state.cards} cardButtonAction={this.cardButtonAction}></Cards>
                 {/* <Card title='Title' subTitle='Subtitle' style={cardstyle}></Card> */}
                 <InputText
                     value={this.state.cardDetailInput}

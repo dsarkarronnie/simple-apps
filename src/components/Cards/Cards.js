@@ -7,7 +7,8 @@ const cards = (props) => {
             key={el.id}
             heading={el.heading}
             detail={el.detail}
-            remove={() => props.removeCard(el.id)}>
+            cardButtonAction={() => props.cardButtonAction(el.id)}
+            props={el}>
         </Card>
     ))
     return (

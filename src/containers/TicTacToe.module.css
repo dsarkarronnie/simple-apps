@@ -17,3 +17,15 @@
     content: '';
     display: table;
 }
+
+.gameBoard {
+    position: relative;
+    left: 50%;
+    text-align: justify;
+}
+
+.gameInfo{
+    position: relative;
+    left: 50%;
+    text-align: justify;
+}
